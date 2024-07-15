@@ -1,11 +1,12 @@
-import { Button } from "./components/ui/button";
+import { RouterProvider } from "@tanstack/react-router";
+import { ThemeProvider } from "./provider/ThemeProvider";
+import { router } from "./main";
 
 function App() {
   return (
-    <>
-      <div className="text-4xl">Hello</div>
-      <Button variant="ghost">Hello</Button>
-    </>
+    <ThemeProvider defaultTheme="dark">
+      <RouterProvider router={router} />
+    </ThemeProvider>
   );
 }
 
