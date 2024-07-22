@@ -4,6 +4,7 @@ import { Label } from "@/components/ui/label";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import cx from "classnames";
 
 const loginFormSchema = z.object({
   email: z
@@ -36,12 +37,19 @@ const Login = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, touchedFields },
   } = useForm<loginFormI>({
     resolver: zodResolver(loginFormSchema),
   });
 
-  console.log("errors", errors);
+  console.log(
+    "errors",
+    errors,
+    "touched",
+    touchedFields,
+    "result",
+    errors?.password && touchedFields?.password,
+  );
 
   return (
     <div className="flex justify-center items-center grow">
@@ -67,7 +75,14 @@ const Login = () => {
                 id="email"
                 placeholder="Enter your email."
                 {...register("email")}
-                className={`focus-visible:outline-none focus-visible:ring-2 focus-visible:border-0 ${!errors?.email ? "border-emerald-400 focus-visible:ring-emerald-400" : "border-rose-400 focus-visible:ring-rose-400"}`}
+                className={cx(
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:border-0",
+                  errors?.email &&
+                    "border-rose-400 focus-visible:ring-rose-400",
+                  !errors?.email &&
+                    touchedFields?.email === true &&
+                    "border-emerald-400 focus-visible:ring-emerald-400",
+                )}
               />
               {errors?.email && (
                 <p className="text-sm text-rose-400">
@@ -84,7 +99,14 @@ const Login = () => {
                 id="password"
                 placeholder="Enter your password."
                 {...register("password")}
-                className={`focus-visible:outline-none focus-visible:ring-2 focus-visible:border-0 ${!errors?.password ? "border-emerald-400 focus-visible:ring-emerald-400" : "border-rose-400 focus-visible:ring-rose-400"}`}
+                className={cx(
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:border-0",
+                  errors?.password &&
+                    "border-rose-400 focus-visible:ring-rose-400",
+                  !errors?.password &&
+                    touchedFields?.password === true &&
+                    "border-emerald-400 focus-visible:ring-emerald-400",
+                )}
               />
               {errors?.password && (
                 <p className="text-sm text-rose-400">
@@ -92,7 +114,9 @@ const Login = () => {
                 </p>
               )}
             </div>
-            <Button type="submit">Sign In</Button>
+            <Button type="submit" className="mt-3">
+              Sign In
+            </Button>
           </div>
         </form>
       </div>
