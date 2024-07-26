@@ -35,7 +35,7 @@ const registerFormSchema = z.object({
     .min(8, {
       message: "Name is too short minimum 8 character is required.",
     })
-    .max(10, {
+    .max(15, {
       message: "Name is too long maximum 10 character is allowed.",
     }),
 });

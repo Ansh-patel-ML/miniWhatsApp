@@ -2,8 +2,16 @@ import { db } from "@/firebase/config";
 import { doc, DocumentData, getDoc } from "firebase/firestore";
 import { create } from "zustand";
 
+export type userData = {
+  email: string;
+  username: string;
+  blocked: [];
+  imgURL: string | null;
+  id: string;
+};
+
 interface usersStoreI {
-  currentUser: null | DocumentData;
+  currentUser: null | userData | DocumentData;
   fetchUserDetails: (uid: string | undefined) => void;
 }
 

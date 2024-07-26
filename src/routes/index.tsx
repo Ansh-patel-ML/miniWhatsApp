@@ -6,7 +6,6 @@ import { onAuthStateChanged } from "firebase/auth";
 
 export const Route = createFileRoute("/")({
   beforeLoad: ({ context, location }) => {
-    console.log("redirect", context);
     if (!context.currentUser) {
       onAuthStateChanged(auth, (user) => {
         if (user === null) {
@@ -20,6 +19,8 @@ export const Route = createFileRoute("/")({
           context.fetchUserDetails(user.uid);
         }
       });
+    } else {
+      context.fetchUserDetails(context.currentUser.id);
     }
   },
   component: Index,

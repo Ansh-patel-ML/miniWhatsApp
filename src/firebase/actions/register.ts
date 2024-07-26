@@ -27,6 +27,7 @@ export const registerAction = ({ email, password, username }: registerI) => {
           username,
           email,
           id: res.user.uid,
+          imgURL: null,
           blocked: [],
         });
         await setDoc(usersChatRef, {
