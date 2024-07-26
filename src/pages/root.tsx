@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import { Outlet, useRouterState } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
+import { Toaster } from "react-hot-toast";
 
 const Root = () => {
   const currentLocation = useRouterState({
@@ -15,6 +16,7 @@ const Root = () => {
       )}
       <Outlet />
       <TanStackRouterDevtools />
+      <Toaster />
     </div>
   );
 };

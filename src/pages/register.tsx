@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import cx from "classnames";
+import { registerAction } from "@/firebase/actions/register";
 
 const registerFormSchema = z.object({
   email: z
@@ -54,8 +55,6 @@ const Register = () => {
     resolver: zodResolver(registerFormSchema),
   });
 
-  console.log("errors", errors);
-
   return (
     <div className="flex justify-center items-center grow">
       <div className="flex flex-col gap-8 p-4">
@@ -67,7 +66,11 @@ const Register = () => {
         </div>
         <form
           onSubmit={handleSubmit((data) => {
-            console.log("data", data);
+            registerAction({
+              email: data.email,
+              password: data.password,
+              username: data.name,
+            });
           })}
         >
           <div className="flex flex-col gap-3 justify-start">

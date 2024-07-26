@@ -5,6 +5,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import cx from "classnames";
+import { loginAction } from "@/firebase/actions/login";
+import { useNavigate } from "@tanstack/react-router";
 
 const loginFormSchema = z.object({
   email: z
@@ -41,15 +43,7 @@ const Login = () => {
   } = useForm<loginFormI>({
     resolver: zodResolver(loginFormSchema),
   });
-
-  console.log(
-    "errors",
-    errors,
-    "touched",
-    touchedFields,
-    "result",
-    errors?.password && touchedFields?.password,
-  );
+  const navigate = useNavigate();
 
   return (
     <div className="flex justify-center items-center grow">
@@ -62,7 +56,11 @@ const Login = () => {
         </div>
         <form
           onSubmit={handleSubmit((data) => {
-            console.log("data", data);
+            loginAction({
+              email: data.email,
+              password: data.password,
+              navigate,
+            });
           })}
         >
           <div className="flex flex-col gap-3 justify-start">
