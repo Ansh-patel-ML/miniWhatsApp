@@ -8,6 +8,7 @@ export type userData = {
   blocked: [];
   imgURL: string | null;
   id: string;
+  profileImageRef: null | string;
 };
 
 interface usersStoreI {

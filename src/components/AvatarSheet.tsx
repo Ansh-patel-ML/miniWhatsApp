@@ -47,8 +47,8 @@ export function AvatarSheet() {
     register,
     handleSubmit,
     formState: { errors, touchedFields },
-    getValues,
     setValue,
+    watch,
   } = useForm<profileUpdateFormI>({
     resolver: zodResolver(profileUpdateFormSchema),
     defaultValues: {
@@ -56,6 +56,7 @@ export function AvatarSheet() {
       imgURL: currentUser?.imgURL,
     },
   });
+  const watchImageURL = watch("imgURL", currentUser?.imgURL);
 
   const handleImageInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -101,6 +102,8 @@ export function AvatarSheet() {
               name: data.name,
               setOpen,
               file: data.file,
+              imgURL: currentUser?.imgURL,
+              imagePath: currentUser?.profileImageRef,
             });
           })}
           className="mt-4"
@@ -108,7 +111,7 @@ export function AvatarSheet() {
           <div className="flex flex-col gap-3 justify-start">
             <div className="flex flex-col justify-center items-center gap-4">
               <Avatar className="w-20 h-20 flex justify-center items-center border rounded-full bg-border hover:cursor-pointer">
-                <AvatarImage src={getValues("imgURL")} alt="profile image" />
+                <AvatarImage src={watchImageURL} alt="profile image" />
                 <AvatarFallback className="text-4xl">
                   {currentUser?.username.slice(0, 1)}
                 </AvatarFallback>

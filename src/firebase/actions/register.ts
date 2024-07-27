@@ -29,6 +29,7 @@ export const registerAction = ({ email, password, username }: registerI) => {
           id: res.user.uid,
           imgURL: null,
           blocked: [],
+          profileImageRef: null,
         });
         await setDoc(usersChatRef, {
           chats: [],
