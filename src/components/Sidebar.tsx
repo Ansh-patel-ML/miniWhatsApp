@@ -2,8 +2,11 @@ import { ModeToggle } from "./ModeToogle";
 import { auth } from "@/firebase/config";
 import { Button } from "./ui/button";
 import { useUser } from "@/store/useUser";
-import { LogOutIcon } from "lucide-react";
+import { LogOutIcon, PlusIcon } from "lucide-react";
 import { AvatarSheet } from "./AvatarSheet";
+import { Input } from "./ui/input";
+import { Separator } from "./ui/separator";
+import { AddUser } from "./AddUser";
 
 export const Sidebar = () => {
   const { currentUser } = useUser();
@@ -19,6 +22,12 @@ export const Sidebar = () => {
         </div>
         <ModeToggle />
       </div>
+      <div className="flex flex-row items-center gap-2 pl-1">
+        <Input placeholder="Search" />
+        <AddUser />
+      </div>
+      <Separator />
+
       <div className="flex-grow">
         <p>List of Users</p>
       </div>
